@@ -5,55 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AestheticAntiseptic's Profile | PinkSpace</title>
   <style>
-    body {
-      background-color: #ffe6f2 !important;
-      color: #4a0026 !important;
-      font-family: Arial, Helvetica, sans-serif !important;
-      font-size: 13px !important;
-      margin: 0;
-      padding: 0;
-    }
-    a {
-      color: #d1006c !important;
-      text-decoration: none !important;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline !important;
-      color: #ff007f !important;
-    }
-    .container {
-      max-width: 950px;
-      margin: 20px auto;
-      background-color: #ffffff;
-      border: 2px solid #ff66b2 !important;
-      padding: 15px;
-      box-shadow: 3px 3px 0px #ffb3d9;
-    }
-    nav .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #ff66b2;
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #ff007f !important;
-      text-shadow: 1px 1px 0px #ffb3d9;
-      letter-spacing: -1px;
-    }
-    .links {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0;
-      background-color: #ff66b2 !important;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      border: 1px solid #d1006c;
-    }
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    a:hover { text-decoration: underline !important; color: #ff007f !important; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; text-shadow: 1px 1px 0px #ffb3d9; letter-spacing: -1px; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
     .links li { padding: 6px 10px; }
     .links li a { color: #ffffff !important; font-size: 13px; }
     .row { display: flex; gap: 15px; margin-top: 15px; }
@@ -61,13 +19,16 @@
     .w-40 { width: 40%; }
     .w-60 { width: 60%; }
     .module-box { border: 2px solid #ff66b2 !important; background-color: #fff9fc !important; margin-bottom: 15px; }
-    .heading { background-color: #ffb3d9 !important; padding: 5px 10px; border-bottom: 2px solid #ff66b2; }
-    .heading h4 { margin: 0; font-size: 14px; color: #800040 !important; }
+    .heading { background-color: #ffb3d9 !important; padding: 5px 10px; border-bottom: 2px solid #ff66b2; color: #800040 !important; font-weight: bold; }
     .inner { padding: 10px; }
-    .profile-pic-container { display: flex; gap: 12px; margin-bottom: 10px; }
+    .profile-pic-container { display: flex; gap: 12px; margin-bottom: 10px; position: relative; }
     .avatar-fallback { width: 130px; height: 160px; border: 2px dashed #ff66b2; background-color: #ffe6f2; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ff007f; font-size: 11px; font-weight: bold; text-transform: uppercase; }
     .avatar-fallback::before { content: "✿"; font-size: 40px; margin-bottom: 5px; }
-    .interact-links p { margin: 6px 0; font-size: 12px; }
+    
+    /* Flashing Online Blinker Image Styling */
+    @keyframes retroBlinkAnimation { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .online-now-badge { background-color: #00cc44; color: white; padding: 3px 6px; font-size: 10px; font-weight: bold; text-transform: uppercase; border-radius: 3px; display: inline-block; animation: retroBlinkAnimation 1.2s infinite; border: 1px solid #009926; letter-spacing: 0.5px; margin-top: 5px; }
+    
     .friend-space-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; margin-top: 10px; }
     .friend-cell { display: flex; flex-direction: column; align-items: center; }
     .friend-pfp { width: 80px; height: 90px; border: 1px solid #ff66b2; background-color: #ffd9ec; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #ff007f; margin-bottom: 4px; }
@@ -76,8 +37,13 @@
     .comment-left { width: 100px; text-align: center; background-color: #ffd9ec; }
     .comment-left .mini-pfp { width: 60px; height: 60px; border: 1px solid #ff66b2; background-color: #fff; display: flex; align-items: center; justify-content: center; margin: 4px auto; font-size: 18px; }
     button { background-color: #ff66b2 !important; color: white !important; border: 1px solid #d1006c !important; padding: 4px 10px; cursor: pointer; font-size: 12px; font-weight: bold; }
-    button:hover { background-color: #ff007f !important; }
     textarea { border: 1px solid #ff66b2 !important; background-color: #fff0f5 !important; padding: 5px; color: #4a0026; }
+    
+    /* Interest Row Layout Key-Value Structure */
+    .interest-row { display: flex; margin-bottom: 6px; font-size: 12px; border-bottom: 1px dashed #ffccd5; padding-bottom: 4px; }
+    .interest-row:last-child { border-bottom: none; }
+    .interest-label { width: 90px; font-weight: bold; color: #800040; flex-shrink: 0; }
+    .interest-value { flex-grow: 1; }
   </style>
 </head>
 <body>
@@ -96,89 +62,101 @@
         <li><a href="layouts.html">Layouts</a></li>
         <li><a href="favorites.html">Favs</a></li>
         <li><a href="chatrooms.html">Chatrooms</a></li>
-        <li><a href="im.html">Messages (IM)</a></li>
       </ul>
     </nav>
 
-    <main>
-      <div class="row">
-        <!-- ================= LEFT COLUMN ================= -->
-        <div class="col w-40 left">
-          <div class="module-box header-card">
-            <div class="heading"><h4>AestheticAntiseptic</h4></div>
-            <div class="inner">
-              <div class="profile-pic-container">
-                <div class="avatar-fallback">Online</div>
-                <div style="font-size:12px;">
-                  <p><b>"Coding a customized world!"</b></p>
-                  <p>Gender: Female</p>
-                  <p>Age: 22</p>
-                  <p>Location: Cyber Space</p>
-                </div>
+    <main class="row">
+      <!-- ================= LEFT COLUMN ================= -->
+      <div class="col w-40 left">
+        <div class="module-box header-card">
+          <div class="heading"><h4 id="profile-wall-name">AestheticAntiseptic</h4></div>
+          <div class="inner">
+            <div class="profile-pic-container">
+              <div class="avatar-fallback">Photo</div>
+              <div>
+                <!-- Dynamic Flashing Blinker Component Injected Here -->
+                <div class="online-now-badge">⚡ Online Now</div>
+                <p style="margin: 8px 0 0 0; font-size:12px;">Gender: Female</p>
+                <p style="margin: 3px 0; font-size:12px;">Location: Cyber Space</p>
               </div>
-            </div>
-          </div>
-
-          <!-- Profile Audio Player -->
-          <div class="module-box music-player-deck" style="margin-bottom: 15px; border: 2px solid #ff66b2; background-color: #fff9fc;">
-            <div class="heading" style="background-color: #ffb3d9; padding: 5px 10px; border-bottom: 2px solid #ff66b2;">
-              <h4 style="margin: 0; font-size: 14px; color: #800040;">🎵 Profile Music Player</h4>
-            </div>
-            <div class="inner" style="padding: 10px; text-align: center;">
-              <p style="margin: 0 0 8px 0; font-weight: bold; color: #d1006c; font-size: 12px;" id="current-track-title">Now Playing: Cyber_Dreamscape.mp3</p>
-              <div style="background-color: #4a0026; color: #ff007f; font-family: monospace; padding: 6px; font-size: 12px; margin-bottom: 8px; border-radius: 3px; letter-spacing: 1px; box-shadow: inset 1px 1px 3px #000;">
-                [01:42 / 03:55] █ █ █ ░ ░ ░ ░ ░ 
-              </div>
-              <div style="display: flex; justify-content: center; gap: 5px;">
-                <button onclick="alert('Rewinding Track...')" style="background-color: #ff66b2; color: white; border: 1px solid #d1006c; padding: 3px 8px; font-size: 11px; cursor: pointer; font-weight: bold;">◄◄ REW</button>
-                <button onclick="toggleRetroAudioPlay(this)" style="background-color: #ff66b2; color: white; border: 1px solid #d1006c; padding: 3px 12px; font-size: 11px; cursor: pointer; font-weight: bold;">▶ PLAY</button>
-                <button onclick="alert('Skipping to Next Track...')" style="background-color: #ff66b2; color: white; border: 1px solid #d1006c; padding: 3px 8px; font-size: 11px; cursor: pointer; font-weight: bold;">FFW ►►</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Profile Visitor Hit Counter -->
-          <div class="module-box hit-counter-card" style="margin-bottom: 15px; border: 2px solid #ff66b2; background-color: #fff9fc;">
-            <div class="heading" style="background-color: #ffb3d9; padding: 5px 10px; border-bottom: 2px solid #ff66b2;">
-              <h4 style="margin: 0; font-size: 14px; color: #800040;">📈 Profile Views Counter</h4>
-            </div>
-            <div class="inner" style="padding: 12px; text-align: center;">
-              <p style="margin: 0 0 8px 0; font-size: 11px; color: #a34775; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">You are visitor number:</p>
-              <div id="retro-counter-display" style="display: inline-flex; gap: 3px; background-color: #000000; padding: 6px 10px; border: 2px solid #ff66b2; border-radius: 2px; box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8);"></div>
-              <p style="margin: 8px 0 0 0; font-size: 10px; color: #ff007f; font-style: italic;">Tracking hits since launch! 🚀</p>
-            </div>
-          </div>
-
-          <div class="module-box contact-actions">
-            <div class="heading"><h4>Contacting Member</h4></div>
-            <div class="inner interact-links">
-              <p>✉ <a href="im.html">Send Message</a></p>
-              <p>➕ <a href="#">Add to Friends</a></p>
-              <p>⭐ <a href="favorites.html">Add to Favorites</a></p>
-              <p>✖ <a href="#">Block User</a></p>
             </div>
           </div>
         </div>
 
-        <!-- ================= RIGHT COLUMN ================= -->
-        <div class="col w-60 right">
-          <div class="module-box blurbs">
-            <div class="heading"><h4>Blurbs</h4></div>
-            <div class="inner">
-              <p style="font-weight: bold; color: #ff007f;">About me:</p>
-              <p>Welcome to my public layout workspace page module!</p>
-            </div>
+        <!-- Sidebar Music Deck Player -->
+        <div class="module-box music-player-deck">
+          <div class="heading"><h4>🎵 Profile Music Player</h4></div>
+          <div class="inner" style="text-align: center;">
+            <p style="margin:0 0 5px 0; font-weight:bold; font-size:11px;">Now Playing: Cyber_Dreamscape.mp3</p>
+            <button onclick="toggleRetroAudioPlay(this)">▶ PLAY</button>
           </div>
+        </div>
 
-          <div class="module-box friends-space">
-            <div class="heading"><h4>Friend Space</h4></div>
-            <div class="inner">
-              <p style="font-weight: bold; margin-top: 0;">AestheticAntiseptic has <span style="color: #ff007f;">8</span> friends.</p>
-              <div class="friend-space-grid">
-                <div class="friend-cell"><a href="#">Tom</a><div class="friend-pfp">☻</div></div>
-                <div class="friend-cell"><a href="#">Glitch</a><div class="friend-pfp">★</div></div>
-                <div class="friend-cell"><a href="#">Vapor</a><div class="friend-pfp">✨</div></div>
-                <div class="friend-cell"><a href="#">Pixel</a><div class="friend-pfp">👾</div></div>
-                <div class="friend-cell"><a href="#">Synth</a><div class="friend-pfp">🎹</div></div>
-                <div class="friend-cell"><a href="#">Velvet</a><div class="friend-pfp">♥</div></div>
-                <div class="friend-cell"><a href="#">Neon</a><div class="friend-pfp">⚡</div></div>
+        <!-- Views Odometer Counter Box -->
+        <div class="module-box hit-counter-card">
+          <div class="heading"><h4>📈 Profile Views Counter</h4></div>
+          <div class="inner" style="text-align: center;">
+            <div id="retro-counter-display" style="display: inline-flex; gap: 3px; background-color: #000; padding: 6px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= RIGHT COLUMN ================= -->
+      <div class="col w-60 right">
+        <!-- Expanded Multi-Blurbs Box Module -->
+        <div class="module-box blurbs">
+          <div class="heading"><h4>Blurbs & Descriptions</h4></div>
+          <div class="inner">
+            <p style="font-weight: bold; color: #ff007f; margin-top: 0; margin-bottom: 2px;">About me:</p>
+            <p id="target-about" style="margin-top: 2px; margin-bottom: 12px;">Welcome to my public layout workspace page module!</p>
+            
+            <p style="font-weight: bold; color: #ff007f; margin-bottom: 2px;">Who I'd like to meet:</p>
+            <p id="target-meet" style="margin-top: 2px; margin-bottom: 0;">Other users who love retro code designs!</p>
+          </div>
+        </div>
+
+        <!-- Connected Interests Table Block -->
+        <div class="module-box interests-deck">
+          <div class="heading"><h4>Interests Ledger Matrix</h4></div>
+          <div class="inner" id="interests-rows-container">
+            <div class="interest-row"><div class="interest-label">General</div><div class="interest-value" id="target-general">Classic Web design</div></div>
+            <div class="interest-row"><div class="interest-label">Music</div><div class="interest-value" id="target-music">-</div></div>
+            <div class="interest-row"><div class="interest-label">Movies</div><div class="interest-value" id="target-movies">-</div></div>
+            <div class="interest-row"><div class="interest-label">Television</div><div class="interest-value" id="target-tv">-</div></div>
+            <div class="interest-row"><div class="interest-label">Books</div><div class="interest-value" id="target-books">-</div></div>
+            <div class="interest-row"><div class="interest-label">Heroes</div><div class="interest-value" id="target-heroes">-</div></div>
+          </div>
+        </div>
+
+        <!-- Comments Logging Stream Wall Component -->
+        <div class="module-box comment-wall">
+          <div class="heading"><h4>Friends Comments</h4></div>
+          <div class="inner">
+            <div style="background-color: #ffd9ec; padding: 10px; margin-bottom: 12px; border: 1px solid #ff66b2;">
+              <textarea id="comment-text" rows="3" style="width: 95%;" placeholder="Leave a message on this profile wall..."></textarea>
+              <button onclick="postLocalComment()" style="margin-top:5px;">Post Comment</button>
+            </div>
+            <table class="comment-table" id="comment-feed-target">
+              <tr>
+                <td class="comment-left"><a href="#">Tom</a><div class="mini-pfp">☻</div></td>
+                <td class="comment-right"><p>Loving the pink space layout variant!</p></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- SCRIPT ENGINE MODULES FOR RENDERING CHASSIS DATA -->
+  <script src="https://jsdelivr.net"></script>
+  <script>
+    const SUPABASE_URL = "https://supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_2DWBfoCYTHLT-hDVvN-Trw_P3PWw6YX";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadProfileDatabaseFields() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let targetUserId = urlParams.get('id');
+
+      if (!targetUserId) {

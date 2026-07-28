@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Groups Directory | PinkSpace</title>
+  <style>
+    body {
+      background-color: #ffe6f2 !important;
+      color: #4a0026 !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 13px !important;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #d1006c !important;
+      text-decoration: none !important;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline !important;
+      color: #ff007f !important;
+    }
+    .container {
+      max-width: 950px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border: 2px solid #ff66b2 !important;
+      padding: 15px;
+      box-shadow: 3px 3px 0px #ffb3d9;
+    }
+    nav .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ff66b2;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff007f !important;
+      text-shadow: 1px 1px 0px #ffb3d9;
+      letter-spacing: -1px;
+    }
+    .links {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      background-color: #ff66b2 !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      border: 1px solid #d1006c;
+    }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    .links li.active, .links li:hover { background-color: #ff007f !important; }
+    
+    .row { display: flex; gap: 15px; margin-top: 15px; }
+    .col { display: flex; flex-direction: column; }
+    .w-35 { width: 35%; }
+    .w-65 { width: 65%; }
+    
+    .module-box {
+      border: 2px solid #ff66b2 !important;
+      background-color: #fff9fc !important;
+      margin-bottom: 15px;
+    }
+    .heading {
+      background-color: #ffb3d9 !important;
+      padding: 5px 10px;
+      border-bottom: 2px solid #ff66b2;
+      color: #800040 !important;
+      font-weight: bold;
+    }
+    .inner { padding: 10px; }
+    
+    input[type="text"], textarea {
+      border: 1px solid #ff66b2 !important;
+      background-color: #fff0f5 !important;
+      padding: 5px;
+      color: #4a0026;
+    }
+    button {
+      background-color: #ff66b2 !important;
+      color: white !important;
+      border: 1px solid #d1006c !important;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    button:hover { background-color: #ff007f !important; }
+
+    /* Groups Grid & Item UI */
+    .groups-list-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .group-card {
+      border: 1px solid #ffb3d9;
+      background-color: #ffffff;
+      padding: 10px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      box-shadow: 2px 2px 0px #ffe6f2;
+    }
+    .group-badge {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #ff66b2;
+      background-color: #ffd9ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #ff007f;
+      flex-shrink: 0;
+    }
+    .group-details { flex-grow: 1; }
+    .group-title { font-size: 14px; margin: 0 0 4px 0; color: #800040; }
+    .group-desc { margin: 0; font-size: 11px; color: #666; line-height: 1.3; }
+    .group-meta { font-size: 11px; color: #a34775; font-style: italic; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <!-- Fully Cross-Linked Global Links Bar -->
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li class="active"><a href="groups.html">Groups</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+
+    <main class="row">
+      <!-- LEFT COLUMN: CREATE A NEW GROUP SHORTCUT -->
+      <div class="col w-35 left">
+        <div class="module-box create-group-card">
+          <div class="heading"><h4>Start a New Club</h4></div>
+          <div class="inner">
+            <form onsubmit="createNewStaticGroup(event)">
+              <div style="margin-bottom: 8px;">
+                <label style="display:block; font-weight:bold; margin-bottom:3px; color:#800040;">Group Name:</label>
+                <input type="text" id="g-name" style="width:94%;" required placeholder="e.g. Vampires & Cryptids Pack">
+              </div>
+              <div style="margin-bottom: 8px;">
+                <label style="display:block; font-weight:bold; margin-bottom:3px; color:#800040;">Description:</label>
+                <textarea id="g-desc" rows="3" style="width:94%; resize:vertical;" required placeholder="What is your group about?"></textarea>
+              </div>
+              <button type="submit" style="width: 100%;">Create Group Entity</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: CHRONOLOGICAL GROUPS FEED LOG -->
+      <div class="col w-65 right">
+        <div class="module-box directory-box">
+          <div class="heading"><h4>Active Community Clubs & Groups</h4></div>
+          <div class="inner">
+            <p style="margin-top: 0; font-weight: bold;">Explore custom spaces shared by community members:</p>
+            
+            <div class="groups-list-deck" id="groups-container-target">
+              
+              <!-- Group Entry Card 1 -->
+              <div class="group-card">
+                <div class="group-badge">💻</div>
+                <div class="group-details">
+                  <h5 class="group-title"><a href="#" onclick="alert('Entering the Coding Coven message boards...')">The Custom CSS Coding Coven</a></h5>
+                  <p class="group-desc">A collective guild of style designers trading layout snippets, custom blinkies, scrollbars, and hot pink configuration parameters.</p>
+                  <div class="group-meta">Members: <span style="color:#ff007f;">142</span> | Category: Customization</div>
+                </div>
+                <button onclick="toggleGroupJoinState(this)">Join Club</button>
+              </div>
+
+              <!-- Group Entry Card 2 -->
+              <div class="group-card">
+                <div class="group-badge">🧛</div>
+                <div class="group-details">
+                  <h5 class="group-title"><a href="#" onclick="alert('Entering the Vampire Clan message boards...')">Nocturnal Vampire Syndicate</a></h5>
+                  <p class="group-desc">A gothic roleplay club dedicated to late-night cyber discussions, dark alt music sharing, and styling vampire-themed layouts.</p>
+                  <div class="group-meta">Members: <span style="color:#ff007f;">89</span> | Category: Gothic RP</div>
+                </div>
+                <button onclick="toggleGroupJoinState(this)">Join Club</button>
+              </div>
+
+              <!-- Group Entry Card 3 -->
+              <div class="group-card">
+                <div class="group-badge">✨</div>
+                <div class="group-details">
+                  <h5 class="group-title"><a href="#" onclick="alert('Entering the Glitter Pixel Guild message boards...')">Y2K Glitter & Pixel Art Guild</a></h5>
+                  <p class="group-desc">Bringing back desktop graphic stickers, glowing pixel stamps, sparkling star trails, and original vintage web icons.</p>
+                  <div class="group-meta">Members: <span style="color:#ff007f;">214</span> | Category: Art & Design</div>
+                </div>
+                <button onclick="toggleGroupJoinState(this)">Join Club</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Client-side script to simulate real-time group additions locally -->
+  <script>
+    function createNewStaticGroup(event) {
+      event.preventDefault();
+      const nameInput = document.getElementById('g-name');
+      const descInput = document.getElementById('g-desc');
+      const targetContainer = document.getElementById('groups-container-target');
+
+      // Construct card item row element
+      const groupCard = document.createElement('div');
+      groupCard.className = 'group-card';
+      groupCard.innerHTML = `
+        <div class="group-badge">✿</div>
+        <div class="group-details">
+          <h5 class="group-title"><a href="#" onclick="alert('Entering message boards...')">${nameInput.value.trim()}</a></h5>
+          <p class="group-desc">${descInput.value.trim()}</p>
+          <div class="group-meta">Members: <span style="color:#ff007f;">1</span> | Category: Public Club</div>
+        </div>
+        <button onclick="toggleGroupJoinState(this)">Leave Club</button>
+      `;
+      
+      // Prepend to target directory tree
+      targetContainer.insertBefore(groupCard, targetContainer.firstChild);
+      
+      // Clear form
+      nameInput.value = "";
+      descInput.value = "";
+      alert("Club created successfully and broadcasted onto your directory wall!");
+    }
+
+    function toggleGroupJoinState(btnElement) {
+      if(btnElement.innerText === "Join Club") {
+        btnElement.innerText = "Leave Club";
+        btnElement.style.backgroundColor = "#ff007f";
+        alert("You have joined this community group roster!");
+      } else {
+        btnElement.innerText = "Join Club";
+        btnElement.style.backgroundColor = "#ff66b2";
+        alert("You have left this community group roster.");
+      }
+    }

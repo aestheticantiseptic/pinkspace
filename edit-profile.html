@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Your Profile | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    a:hover { text-decoration: underline !important; color: #ff007f !important; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; text-shadow: 1px 1px 0px #ffb3d9; letter-spacing: -1px; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; }
+    .row { display: flex; gap: 15px; margin-top: 15px; }
+    .col { display: flex; flex-direction: column; }
+    .w-30 { width: 30%; }
+    .w-70 { width: 70%; }
+    .module-box { border: 2px solid #ff66b2 !important; background-color: #fff9fc !important; margin-bottom: 15px; }
+    .heading { background-color: #ffb3d9 !important; padding: 5px 10px; border-bottom: 2px solid #ff66b2; color: #800040 !important; font-weight: bold; }
+    .inner { padding: 10px; }
+    .form-pane label { display: block; font-weight: bold; margin-top: 12px; margin-bottom: 4px; color: #800040; }
+    textarea, input[type="text"] { width: 96%; border: 1px solid #ff66b2 !important; background-color: #fff0f5 !important; padding: 6px; color: #4a0026; font-family: monospace; font-size: 12px; }
+    button { background-color: #ff66b2 !important; color: white !important; border: 1px solid #d1006c !important; padding: 6px 15px; cursor: pointer; font-size: 13px; font-weight: bold; margin-top: 15px; width: 100%; }
+    button:hover { background-color: #ff007f !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+
+    <main class="row">
+      <div class="col w-30 left">
+        <div class="module-box hints">
+          <div class="heading">Instructions</div>
+          <div class="inner" style="font-size: 11px; line-height: 1.4;">
+            <p style="margin-top:0;">All fields are optional. Leave fields blank if you want them hidden from your profile wall module layout.</p>
+            <p>You can use standard text strings, emoji sequences, or inline styling tags inside your interest input rows.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col w-70 right">
+        <div class="module-box form-pane">
+          <div class="heading">Edit Your Profile Blurbs & Interstellar Settings</div>
+          <div class="inner">
+            <form onsubmit="saveCustomProfileDataMatrix(event)">
+              <label>About Me:</label>
+              <textarea id="edit-about" rows="4" placeholder="Tell the network space about yourself..."></textarea>
+
+              <label>Who I'd Like to Meet:</label>
+              <textarea id="edit-meet" rows="3" placeholder="Describe your ideal friends..."></textarea>
+
+              <label>General Interests:</label>
+              <textarea id="edit-general" rows="2" placeholder="Pixel graphics, coding, space exploration..."></textarea>
+
+              <label>Favorite Music:</label>
+              <textarea id="edit-music" rows="2" placeholder="Synthwave, industrial, lo-fi tracks..."></textarea>
+
+              <label>Favorite Movies:</label>
+              <textarea id="edit-movies" rows="2" placeholder="Sci-fi, retro cyberpunk classics..."></textarea>
+
+              <label>Favorite Television:</label>
+              <textarea id="edit-tv" rows="2" placeholder="Classic animation, serial dramas..."></textarea>
+
+              <label>Favorite Books:</label>
+              <textarea id="edit-books" rows="2" placeholder="Coding documentation, retro lore logs..."></textarea>
+
+              <label>My Heroes:</label>
+              <textarea id="edit-heroes" rows="2" placeholder="Ada Lovelace, Tom, vintage creators..."></textarea>
+
+              <button type="submit" id="save-all-btn">Save All Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- SUPABASE INTERACTION SCRIPT FOR SETTINGS -->
+  <script src="https://jsdelivr.net"></script>
+  <script>
+    const SUPABASE_URL = "https://supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_2DWBfoCYTHLT-hDVvN-Trw_P3PWw6YX";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadCurrentMetadataIntoFields() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { window.location.href = "login.html"; return; }
+      
+      const meta = session.user.user_metadata;
+      if (meta) {
+        document.getElementById('edit-about').value = meta.blurb_about || '';
+        document.getElementById('edit-meet').value = meta.blurb_meet || '';
+        document.getElementById('edit-general').value = meta.interests_general || '';
+        document.getElementById('edit-music').value = meta.interests_music || '';
+        document.getElementById('edit-movies').value = meta.interests_movies || '';
+        document.getElementById('edit-tv').value = meta.interests_tv || '';
+        document.getElementById('edit-books').value = meta.interests_books || '';
+        document.getElementById('edit-heroes').value = meta.interests_heroes || '';
+      }
+    }
+
+    async function saveCustomProfileDataMatrix(event) {
+      event.preventDefault();
+      const btn = document.getElementById('save-all-btn');
+      btn.disabled = true; btn.innerText = "Saving to database server...";
+
+      try {
+        const { error } = await supabase.auth.updateUser({
+          data: {
+            blurb_about: document.getElementById('edit-about').value.trim(),
+            blurb_meet: document.getElementById('edit-meet').value.trim(),
+            interests_general: document.getElementById('edit-general').value.trim(),
+            interests_music: document.getElementById('edit-music').value.trim(),
+            interests_movies: document.getElementById('edit-movies').value.trim(),
+            interests_tv: document.getElementById('edit-tv').value.trim(),
+            interests_books: document.getElementById('edit-books').value.trim(),
+            interests_heroes: document.getElementById('edit-heroes').value.trim()
+          }
+        });
+        if (error) throw error;
+        alert("Success! Detailed settings committed cleanly to your backend metadata card.");
+      } catch (err) { alert("Save failed: " + err.message); }
+      finally { btn.disabled = false; btn.innerText = "Save All Changes"; }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCurrentMetadataIntoFields);
+  </script>
+</body>
+</html>
