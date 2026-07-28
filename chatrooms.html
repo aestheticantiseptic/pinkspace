@@ -11,11 +11,11 @@
   <link id="google-fonts-hub" rel="stylesheet" href="https://googleapis.com/css2?family=Creepster&family=Cinzel+Decorative&family=Nosifer&family=UnifrakturMaguntia&family=Special+Elite&family=Bungee+Spice&family=VT323&family=Comic+Neue&family=Parisienne&family=Homemade+Apple&family=Playfair+Display&family=Pacifico&display=swap">
 
   <style id="master-room-theme">
-    /* Theme variable blocks get completely overwritten dynamically by the JavaScript state engine */
+    /* Theme configuration variables get overwritten dynamically by the JavaScript compiler state engine */
     body { background-color: #ffe6f2; color: #4a0026; font-family: Arial, sans-serif; margin: 0; padding: 0; }
   </style>
   <style>
-    /* Fixed Platform Grid Chassis Formatting */
+    /* Fixed Platform Chassis Formatting Layout */
     .container { max-width: 1000px; margin: 15px auto; background-color: var(--bg-main, #fff); border: 2px solid var(--border-color, #ff66b2); padding: 15px; box-shadow: 4px 4px 0px var(--shadow-color, #ffb3d9); }
     nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid var(--border-color, #ff66b2); }
     .logo { font-size: 28px; font-weight: bold; color: var(--text-accent, #ff007f); text-shadow: 1px 1px 0px var(--shadow-color, #ffb3d9); letter-spacing: -1px; text-decoration: none; }
@@ -24,7 +24,7 @@
     .links li a { color: #ffffff !important; font-weight: bold; text-decoration: none; font-size: 13px; }
     .links li:hover { background-color: var(--text-accent, #ff007f); }
     
-    /* The 13 Thematic Control Buttons Deck */
+    /* Room Buttons Layout Bar Grid */
     .room-button-deck { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; padding: 10px; background: rgba(0,0,0,0.05); border: 1px dashed var(--border-color, #ff66b2); }
     .room-btn { padding: 5px 10px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid var(--border-color, #ff66b2); background: #fff; color: var(--text-accent, #ff007f); }
     .room-btn.active { background: var(--text-accent, #ff007f) !important; color: #fff !important; }
@@ -38,7 +38,6 @@
     .heading { background-color: var(--bg-header, #ffb3d9); padding: 6px 10px; border-bottom: 2px solid var(--border-color, #ff66b2); color: var(--text-main, #800040); font-weight: bold; }
     .inner { padding: 10px; }
 
-    /* Custom Input Control Deck styling */
     .control-deck { display: flex; flex-wrap: wrap; gap: 10px; background: var(--bg-header, #ffb3d9); padding: 8px; margin-bottom: 10px; border-bottom: 1px solid var(--border-color, #ff66b2); align-items: center; font-size: 12px; }
     .chat-scroller { height: 320px; overflow-y: scroll; padding: 10px; background: #ffffff; border: 1px solid var(--border-color, #ff66b2); display: flex; flex-direction: column; gap: 6px; }
     
@@ -59,8 +58,6 @@
         <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
         <div class="right"><a href="login.html">LogOut</a></div>
       </div>
-     
-            <!-- The Complete 9-Button Connected Site Navigation Menu Links -->
       <ul class="links">
         <li><a href="index.html">Home</a></li>
         <li><a href="browse.html">Browse</a></li>
@@ -68,18 +65,19 @@
         <li><a href="bulletins.html">Bulletins</a></li>
         <li><a href="forum.html">Forum</a></li>
         <li><a href="groups.html">Groups</a></li>
+        <li><a href="playlist.html">Playlist</a></li>
         <li><a href="layouts.html">Layouts</a></li>
         <li><a href="favorites.html">Favs</a></li>
-        <li><a href="chatrooms.html">Chatrooms</a></li>
-        <li><a href="im.html">Messages (IM)</a></li>
+        <li class="active"><a href="chatrooms.html">Chatrooms</a></li>
       </ul>
     </nav>
+
     <!-- The 13 Navigation Room Buttons Container -->
     <div class="room-button-deck" id="room-buttons-target"></div>
 
     <main>
       <div class="row">
-        <!-- LEFT UTILITY SIDEBAR COLUMN -->
+        <!-- LEFT SIDEBAR -->
         <div class="col w-25 left">
           <div class="module-box login-card">
             <div class="heading">Chat Identity</div>
@@ -98,12 +96,11 @@
           </div>
         </div>
 
-        <!-- RIGHT MAIN CHAT CLIENT COLUMN -->
+        <!-- RIGHT COLUMN (CHAT CLIENT) -->
         <div class="col w-75 right">
           <div class="module-box chat-chassis">
             <div class="heading" id="room-banner-title">Chatroom Loading...</div>
             
-            <!-- Dynamic Customization Dashboard Panel Deck -->
             <div class="control-deck">
               <div>
                 Font: 
@@ -120,21 +117,18 @@
                 </select>
               </div>
               <div>
-                Text Color: <input type="color" id="chat-color-wheel" value="#000000" onchange="applyTextCustomizerStyle()">
+                Text Color: <input type="color" id="chat-color-wheel" value="#ff007f" onchange="applyTextCustomizerStyle()">
               </div>
             </div>
 
-            <!-- Scrollable Message Stream Window -->
             <div class="chat-scroller" id="chat-stream-target"></div>
 
-            <!-- Message Input Area -->
             <div class="input-row">
-              <input type="text" id="chat-message-entry" placeholder="Type a message (Kappa, PogChamp, catjam supported!)..." onkeydown="handleChatMsgKey(event)">
+              <input type="text" id="chat-message-entry" placeholder="Type Kappa, PogChamp, catjam, or /timeout..." onkeydown="handleChatMsgKey(event)">
               <button onclick="transmitChatroomMessage()">Send</button>
             </div>
           </div>
 
-          <!-- Thematic Guidelines Notice Panel Box -->
           <div class="module-box rules-chassis">
             <div class="heading">Official Room Enforcement Guidelines</div>
             <div class="inner" id="room-rules-target"></div>
@@ -144,36 +138,41 @@
     </main>
   </div>
 
-  <!-- Global Twitch, FrankerFaceZ (FFZ), and 7TV Image Mapping Dictionary -->
+  <!-- Load the official Supabase Core Database JS Library Matrix Module CDN -->
+  <script src="https://jsdelivr.net"></script>
+
+  <!-- Twitch, FrankerFaceZ, and 7TV Image Mapping Dictionary -->
   <script>
     const TwitchEmoteRegistry = {
-      // Global Twitch defaults
       "pogchamp": "https://jtvnw.net",
       "kappa": "https://jtvnw.net",
       "lul": "https://jtvnw.net",
       "heyguys": "https://jtvnw.net",
-      "biblethump": "https://jtvnw.net",
-      "wutface": "https://jtvnw.net",
-      "kreygasm": "https://jtvnw.net",
-      
-      // FFZ high quality asset tokens
       "omegalul": "https://frankerfacez.com",
       "pepehands": "https://frankerfacez.com",
       "monkas": "https://frankerfacez.com",
       "pog": "https://frankerfacez.com",
-      
-      // 7TV animated high-definition webp files
       "sourpls": "https://7tv.app",
       "catjam": "https://7tv.app",
       "kekw": "https://7tv.app",
       "peped": "https://7tv.app",
-      "sadge": "https://7tv.app",
-      "copium": "https://7tv.app"
+      "sadge": "https://7tv.app"
     };
 
     function convertTextToTwitchEmotes(rawInputText) {
       const wordTokens = rawInputText.split(' ');
       const parsedTokensArray = wordTokens.map(word => {
-        // Strip out punctuation parameters to capture lone emote keys seamlessly
         const cleanKey = word.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         if (TwitchEmoteRegistry[cleanKey]) {
+          return `<img src="${TwitchEmoteRegistry[cleanKey]}" alt="${word}" title="${word}" style="vertical-align: middle; max-height: 24px; margin: 0 2px; display: inline-block;">`;
+        }
+        return word;
+      });
+      return parsedTokensArray.join(' ');
+    }
+  </script>
+
+  <!-- Multi-Thematic Styling Configuration Matrix Ledger Scripts -->
+  <script>
+    const roomRegistry = {
+      goth: { name: "Goth Room", font: "Creepster", color: "#ff0055", styles: { bg: "#0a0508", card: "#140c11", header: "#3a1223", border: "#ff0055", mainText: "#ffb3d9", accent: "#ff0055" }, rules: ["No bright color text lines.", "Goth art and post-punk discussions only."] },
