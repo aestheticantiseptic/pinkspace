@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Playlist Manager | PinkSpace</title>
+  <style>
+    body {
+      background-color: #ffe6f2 !important;
+      color: #4a0026 !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 13px !important;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      color: #d1006c !important;
+      text-decoration: none !important;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline !important;
+      color: #ff007f !important;
+    }
+    .container {
+      max-width: 950px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border: 2px solid #ff66b2 !important;
+      padding: 15px;
+      box-shadow: 3px 3px 0px #ffb3d9;
+    }
+    nav .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ff66b2;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff007f !important;
+      text-shadow: 1px 1px 0px #ffb3d9;
+      letter-spacing: -1px;
+    }
+    .links {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      background-color: #ff66b2 !important;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      border: 1px solid #d1006c;
+    }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    .links li.active, .links li:hover { background-color: #ff007f !important; }
+    
+    .row { display: flex; gap: 15px; margin-top: 15px; }
+    .col { display: flex; flex-direction: column; }
+    .w-35 { width: 35%; }
+    .w-65 { width: 65%; }
+    
+    .module-box {
+      border: 2px solid #ff66b2 !important;
+      background-color: #fff9fc !important;
+      margin-bottom: 15px;
+    }
+    .heading {
+      background-color: #ffb3d9 !important;
+      padding: 5px 10px;
+      border-bottom: 2px solid #ff66b2;
+      color: #800040 !important;
+      font-weight: bold;
+    }
+    .inner { padding: 10px; }
+    
+    input[type="text"], select {
+      border: 1px solid #ff66b2 !important;
+      background-color: #fff0f5 !important;
+      padding: 5px;
+      color: #4a0026;
+    }
+    button {
+      background-color: #ff66b2 !important;
+      color: white !important;
+      border: 1px solid #d1006c !important;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    button:hover { background-color: #ff007f !important; }
+
+    /* Audio Deck Display Styling */
+    .retro-audio-display {
+      background-color: #2b001a;
+      border: 2px solid #ff66b2;
+      border-radius: 4px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 15px;
+      box-shadow: inset 0px 0px 8px #000;
+    }
+    .eq-bar-grid {
+      display: inline-flex;
+      gap: 3px;
+      height: 35px;
+      align-items: flex-end;
+      margin-bottom: 8px;
+    }
+    .eq-bar {
+      width: 6px;
+      height: 5px;
+      background-color: #ff007f;
+      box-shadow: 0 0 4px #ff007f;
+      transition: height 0.15s ease;
+    }
+
+    /* Playlist Table Architecture */
+    .playlist-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 5px;
+    }
+    .playlist-table th, .playlist-table td {
+      border: 1px solid #ffb3d9;
+      padding: 8px;
+      text-align: left;
+    }
+    .playlist-table th {
+      background-color: #ffd9ec;
+      color: #800040;
+    }
+    .playlist-table tr:hover {
+      background-color: #fff0f5;
+    }
+    .track-active {
+      background-color: #ffe6f2 !important;
+      font-weight: bold;
+    }
+    .play-icon-btn {
+      cursor: pointer;
+      color: #ff007f;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <!-- Global Connected System Links with Playlist Active Button -->
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="groups.html">Groups</a></li>
+        <li class="active"><a href="playlist.html">Playlist</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+        <li><a href="im.html">Messages (IM)</a></li>
+      </ul>
+    </nav>
+
+    <main class="row">
+      <!-- LEFT SIDEBAR: SYNTH AUDIO CONTROLLER & TRACK ADDER -->
+      <div class="col w-35 left">
+        
+        <!-- Live Audio Synthesizer Dashboard Console -->
+        <div class="retro-audio-display">
+          <div class="eq-bar-grid">
+            <div class="eq-bar" id="eq1"></div><div class="eq-bar" id="eq2"></div>
+            <div class="eq-bar" id="eq3"></div><div class="eq-bar" id="eq4"></div>
+            <div class="eq-bar" id="eq5"></div><div class="eq-bar" id="eq6"></div>
+            <div class="eq-bar" id="eq7"></div><div class="eq-bar" id="eq8"></div>
+          </div>
+          <div style="color: #ff007f; font-family: monospace; font-size: 12px; font-weight: bold; text-shadow: 0 0 3px #ff007f; margin-bottom: 8px;" id="audio-deck-status">
+            DECK: STOPPED
+          </div>
+          <div style="display: flex; justify-content: center; gap: 6px;">
+            <button onclick="controlTrackPlayback('play')" id="deck-play-btn">▶ PLAY</button>
+            <button onclick="controlTrackPlayback('stop')" style="background-color: #a34775 !important;">■ STOP</button>
+          </div>
+        </div>
+
+        <div class="module-box add-track-card">
+          <div class="heading"><h4>Add Track to Profile Deck</h4></div>
+          <div class="inner">
+            <form onsubmit="addNewTrackToPlaylist(event)">
+              <div style="margin-bottom: 8px;">
+                <label style="display:block; font-weight:bold; margin-bottom:3px; color:#800040;">Song Title:</label>
+                <input type="text" id="track-title" style="width:94%;" required placeholder="e.g. Cyber Dreamscape">
+              </div>
+              <div style="margin-bottom: 8px;">
+                <label style="display:block; font-weight:bold; margin-bottom:3px; color:#800040;">Artist / Creator:</label>
+                <input type="text" id="track-artist" style="width:94%;" required placeholder="e.g. PixelGlow">
+              </div>
+              <div style="margin-bottom: 8px;">
+                <label style="display:block; font-weight:bold; margin-bottom:3px; color:#800040;">Synth Style Tone:</label>
+                <select id="track-synth" style="width:100%;">
+                  <option value="sine">Soft Ambient Wave</option>
+                  <option value="triangle">Retro 8-Bit Chiptune</option>
+                  <option value="sawtooth">Chunky Cyber Electro</option>
+                  <option value="square">Vintage Arcade Pulse</option>
+                </select>
+              </div>
+              <button type="submit" style="width: 100%;">💾 Inject Track into Ledger</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: PLAYLIST DATABASE DIRECTORY VIEW -->
+      <div class="col w-65 right">
+        <div class="module-box directory-box">
+          <div class="heading"><h4>Profile Audio Playlist Catalog Ledger</h4></div>
+          <div class="inner" style="padding: 5px;">
+            <table class="playlist-table">
+              <thead>
+                <tr>
+                  <th style="width: 8%; text-align: center;">Deck</th>
+                  <th style="width: 47%;">Song Title</th>
+                  <th style="width: 30%;">Artist</th>
+                  <th style="width: 15%; text-align: center;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="playlist-rows-target">
+                <!-- Preset Track 1 -->
+                <tr class="track-active" data-synth="triangle">
+                  <td style="text-align: center;" class="play-icon-btn" onclick="selectAndLoadTrackRow(this)">▶</td>
+                  <td>Cyber Dreamscape</td>
+                  <td>PixelGlow</td>
+                  <td style="text-align: center;"><span class="play-icon-btn" style="color:#a34775; font-size:11px;" onclick="this.parentElement.parentElement.remove()">[Remove]</span></td>
+                </tr>
+                <!-- Preset Track 2 -->
+                <tr data-synth="sine">
+                  <td style="text-align: center;" class="play-icon-btn" onclick="selectAndLoadTrackRow(this)">▶</td>
+                  <td>Neon Stardust Atmosphere</td>
+                  <td>VaporWave_99</td>
+                  <td style="text-align: center;"><span class="play-icon-btn" style="color:#a34775; font-size:11px;" onclick="this.parentElement.parentElement.remove()">[Remove]</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PLAYLIST MANAGEMENT & SYNTH WAVE CORE SYSTEM SCRIPT -->
+  <script>
+    // 1. Initialize Audio Synthesizer Hook
+    let audioContextInstance = null;
+    let synthOscNode = null;
+    let synthGainNode = null;
+    let eqIntervalEngineId = null;
+    let currentSynthType = "triangle";
+
+    function startSynthWaveEngine(waveType) {
+      // Create audio workspace if uninitialized
+      if (!audioContextInstance) {
+        audioContextInstance = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      // Safety stop to clear loops
+      stopSynthWaveEngine();
+
+      synthOscNode = audioContextInstance.createOscillator();
