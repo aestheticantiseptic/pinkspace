@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layouts Showcase | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+    .card { border: 1px solid #ffb3d9; background:#fff9fc; padding: 12px; text-align: center; }
+    button { background-color: #ff66b2 !important; color: white !important; border: 1px solid #d1006c !important; padding: 4px 10px; cursor: pointer; font-weight: bold; width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li class="active"><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+    <main class="grid">
+      <div class="card"><h5>Dark Theme Override</h5><button onclick="copyCode('dark')">Copy Theme Code</button></div>
+      <div class="card"><h5>Sky Blue Override</h5><button onclick="copyCode('blue')">Copy Theme Code</button></div>
+    </main>
+  </div>
+  <script>
+    const database = {
+      dark: "body { background-color: #111 !important; color: #fff !important; } .container { background: #000 !important; border-color: #ff007f !important; }",
+      blue: "body { background-color: #e0f2fe !important; color: #0c4a6e !important; } .links { background: #38bdf8 !important; }"
+    };
+    function copyCode(key) {
+      navigator.clipboard.writeText(database[key]).then(() => { alert("Theme code copied! Paste it into your Home Customizer box."); });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    a:hover { text-decoration: underline !important; color: #ff007f !important; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; text-shadow: 1px 1px 0px #ffb3d9; letter-spacing: -1px; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; }
+    .login-box { max-width: 400px; margin: 40px auto; border: 2px solid #ff66b2 !important; background-color: #fff9fc !important; }
+    .heading { background-color: #ffb3d9 !important; padding: 6px 10px; border-bottom: 2px solid #ff66b2; }
+    .heading h4 { margin: 0; font-size: 14px; color: #800040 !important; }
+    .inner { padding: 15px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 4px; color: #800040; }
+    .form-group input { width: 94%; border: 1px solid #ff66b2 !important; background-color: #fff0f5 !important; padding: 6px; color: #4a0026; }
+    button { background-color: #ff66b2 !important; color: white !important; border: 1px solid #d1006c !important; padding: 5px 15px; cursor: pointer; font-size: 12px; font-weight: bold; width: 100%; }
+    button:hover { background-color: #ff007f !important; }
+    .signup-prompt { text-align: center; margin-top: 15px; font-size: 12px; border-top: 1px dashed #ffb3d9; padding-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="#" class="logo">pinkSpace</a></div>
+        <div class="right"><span style="font-size: 11px; color: #a34775;">Welcome Guest!</span></div>
+      </div>
+      <ul class="links">
+        <li class="active"><a href="login.html">Sign In</a></li>
+        <li><a href="register.html">Sign Up</a></li>
+        <li><a href="browse.html">Browse</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="login-box">
+        <div class="heading"><h4>Sign In to pinkSpace</h4></div>
+        <div class="inner">
+          <form>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="text" id="email" required>
+            </div>
+            <div class="form-group">
+              <label for="pass">Password:</label>
+              <input type="password" id="pass" style="width: 94%; border: 1px solid #ff66b2 !important; background-color: #fff0f5 !important; padding: 6px;" required>
+            </div>
+            <button type="submit">Log In</button>
+          </form>
+          <div class="signup-prompt">Don't have an account? <a href="register.html">Sign up here!</a></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://jsdelivr.net"></script>
+  <script>
+    const SUPABASE_URL = "https://supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_2DWBfoCYTHLT-hDVvN-Trw_P3PWw6YX";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    async function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('pass').value;
+      const submitBtn = event.target.querySelector('button');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Signing in...";
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email: email, password: password });
+        if (error) throw error;
+        window.location.href = "index.html";
+      } catch (err) {
+        alert("Login failed: " + err.message);
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Log In";
+      }
+    }
+    document.querySelector('form').addEventListener('submit', handleLogin);
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Community Forum | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    .forum-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .forum-table th, .forum-table td { border: 1px solid #ffb3d9; padding: 8px; }
+    .forum-table th { background-color: #ffd9ec; color: #800040; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li class="active"><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+    <main>
+      <table class="forum-table">
+        <thead><tr><th>Topic</th><th>Replies</th><th>Last Post</th></tr></thead>
+        <tbody>
+          <tr style="background:#fff0f5;"><td colspan="3"><b>💬 General Discussion</b></td></tr>
+          <tr><td><a href="#">Welcome to PinkSpace! Introduce yourself!</a></td><td>14</td><td>Tom</td></tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>

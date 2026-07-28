@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulletins Notice Board | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    input[type="text"], textarea { border: 1px solid #ff66b2 !important; background-color: #fff0f5 !important; padding: 5px; width: 90%; }
+    button { background-color: #ff66b2 !important; color: white !important; border: 1px solid #d1006c !important; padding: 4px 10px; cursor: pointer; font-weight: bold; }
+    .bulletin-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .bulletin-table th, .bulletin-table td { border: 1px solid #ffb3d9; padding: 8px; }
+    .bulletin-table th { background-color: #ffd9ec; color: #800040; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li class="active"><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+    <main style="display:flex; gap:20px; margin-top:15px;">
+      <div style="width:35%; border:1px solid #ff66b2; padding:10px; background:#fff9fc;">
+        <h4>Post Notice</h4>
+        <input type="text" id="b-title" placeholder="Title"><br><br>
+        <textarea id="b-msg" rows="4" placeholder="Message"></textarea><br><br>
+        <button onclick="postNotice()">Broadcast</button>
+      </div>
+      <div style="width:65%;">
+        <table class="bulletin-table">
+          <thead><tr><th>From</th><th>Topic</th><th>Time</th></tr></thead>
+          <tbody id="board">
+            <tr><td>Tom</td><td><b>Check my layouts!</b></td><td>10 mins ago</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <script>
+    function postNotice() {
+      const t = document.getElementById('b-title'); const m = document.getElementById('b-msg');
+      const tr = document.createElement('tr'); tr.innerHTML = `<td>You</td><td><b>${t.value}</b> - ${m.value}</td><td>Just Now</td>`;
+      document.getElementById('board').insertBefore(tr, document.getElementById('board').firstChild);
+      t.value=""; m.value="";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse Profiles | PinkSpace</title>
+  <style>
+    body { background-color: #ffe6f2 !important; color: #4a0026 !important; font-family: Arial, Helvetica, sans-serif !important; font-size: 13px !important; margin: 0; padding: 0; }
+    a { color: #d1006c !important; text-decoration: none !important; font-weight: bold; }
+    .container { max-width: 950px; margin: 20px auto; background-color: #ffffff; border: 2px solid #ff66b2 !important; padding: 15px; box-shadow: 3px 3px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f !important; text-shadow: 1px 1px 0px #ffb3d9; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2 !important; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-size: 13px; text-decoration: none; }
+    .browse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 10px; }
+    .user-card { border: 1px solid #ffb3d9; background-color: #ffffff; padding: 10px; text-align: center; }
+    .mini-avatar { width: 80px; height: 90px; border: 1px solid #ff66b2; background-color: #ffd9ec; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 24px; color: #ff007f; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="favorites.html">Favs</a></li>
+        <li><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="browse-grid">
+        <div class="user-card"><div class="mini-avatar">✿</div><a href="profile.html">Tom</a><p>Online</p></div>
+        <div class="user-card"><div class="mini-avatar">★</div><a href="profile.html">Glitch</a><p>Online</p></div>
+        <div class="user-card"><div class="mini-avatar">✨</div><a href="profile.html">Vapor</a><p>Online</p></div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

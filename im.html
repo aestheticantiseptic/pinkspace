@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instant Messenger | PinkSpace</title>
+  <style>
+    body {
+      background-color: #ffe6f2 !important;
+      color: #4a0026 !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 13px !important;
+      margin: 0;
+      padding: 0;
+    }
+    .im-window {
+      max-width: 400px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      border: 3px solid #ff66b2 !important;
+      box-shadow: 4px 4px 0px #ffb3d9;
+    }
+    .im-header {
+      background-color: #ff66b2 !important;
+      color: #ffffff !important;
+      padding: 6px 10px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #d1006c;
+    }
+    .im-header .actions span {
+      cursor: pointer;
+      margin-left: 6px;
+      font-weight: bold;
+    }
+    .im-buddy-info {
+      background-color: #fff0f5;
+      padding: 6px 10px;
+      border-bottom: 1px dashed #ff66b2;
+      font-size: 11px;
+    }
+    .im-history {
+      height: 250px;
+      overflow-y: scroll;
+      padding: 10px;
+      background-color: #fff9fc;
+      border-bottom: 2px solid #ff66b2;
+    }
+    .msg {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .msg .sender {
+      font-weight: bold;
+    }
+    .msg.me .sender { color: #d1006c; }
+    .msg.them .sender { color: #0066cc; }
+    .im-input-area {
+      padding: 8px;
+      background-color: #ffffff;
+      display: flex;
+      gap: 8px;
+    }
+    .im-input-area textarea {
+      flex-grow: 1;
+      border: 1px solid #ff66b2 !important;
+      background-color: #fff0f5 !important;
+      padding: 4px;
+      height: 40px;
+      resize: none;
+      font-family: Arial, sans-serif;
+    }
+    .im-input-area button {
+      background-color: #ff66b2 !important;
+      color: white !important;
+      border: 1px solid #d1006c !important;
+      padding: 0 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .im-input-area button:hover {
+      background-color: #ff007f !important;
+    }
+    .im-footer-links {
+      text-align: center;
+      padding: 5px;
+      font-size: 11px;
+      background-color: #fff0f5;
+      border-top: 1px solid #ffb3d9;
+    }
+    .im-footer-links a {
+      color: #d1006c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="im-window">
+    <!-- Window Top Title Decoration Bar -->
+    <div class="im-header">
+      <span>pinkIM - Tom</span>
+      <div class="actions">
+        <span>_</span> <span>🔲</span> <span>X</span>
+      </div>
+    </div>
+
+    <!-- Active Buddy Details Box -->
+    <div class="im-buddy-info">
+      <b>Tom</b> is Online - "Building things out of pixels."
+    </div>
+
+    <!-- Conversation Dynamic Render Stream -->
+    <div class="im-history" id="chat-stream">
+      <div class="msg them">
+        <span class="sender">Tom:</span> Hey! Awesome profile layout you built. Is the IM window working too?
+      </div>
+    </div>
+
+    <!-- Message Entry Form Layout -->
+    <div class="im-input-area">
+      <textarea id="chat-box" placeholder="Type a message..." onkeydown="handleKeyPress(event)"></textarea>
+
+    </div>
+
+    <!-- Close Navigation Control Link -->
+    <div class="im-footer-links">
+      <a href="index.html">← Return to Home Profile</a>
+    </div>
+  </div>
+
+  <!-- Client-side Chat Injection Engine Script -->
+  <script>
+    function sendChatMessage() {
+      const chatBox = document.getElementById('chat-box');
+      const stream = document.getElementById('chat-stream');
+      const text = chatBox.value.trim();
+      
+      if(text === '') return;
+
+      // Construct and append client element container node block
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'msg me';
+      msgDiv.innerHTML = `<span class="sender">Me:</span> ${text}`;
+      stream.appendChild(msgDiv);
+      
+      // Reset input window frame scroll layout tracking coordinates
+      chatBox.value = '';
+      stream.scrollTop = stream.scrollHeight;
+
+      // Trigger automatic simulation reply sequence pipeline
+      setTimeout(() => {
+        const replyDiv = document.createElement('div');
+        replyDiv.className = 'msg them';
+        replyDiv.innerHTML = `<span class="sender">Tom:</span> <span style="font-style: italic; color: #a34775;">*retro sparkle sound*</span> That works flawlessly!`;
+        stream.appendChild(replyDiv);
+        stream.scrollTop = stream.scrollHeight;
+      }, 1200);
+    }
+
+    function handleKeyPress(e) {
+      if(e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    }
+  </script>
+
+</body>
+</html>

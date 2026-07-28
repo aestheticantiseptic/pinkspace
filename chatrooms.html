@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Global Chatrooms | PinkSpace</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://googleapis.com/css2?family=Creepster&family=Cinzel+Decorative&family=Nosifer&family=UnifrakturMaguntia&family=Special+Elite&family=Bungee+Spice&family=VT323&family=Comic+Neue&family=Parisienne&family=Pacifico&display=swap">
+  <style id="master-room-theme">
+    body { background-color: #ffe6f2; color: #4a0026; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+  </style>
+  <style>
+    .container { max-width: 1000px; margin: 15px auto; background-color: #fff; border: 2px solid #ff66b2; padding: 15px; box-shadow: 4px 4px 0px #ffb3d9; }
+    nav .top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid #ff66b2; }
+    .logo { font-size: 28px; font-weight: bold; color: #ff007f; text-shadow: 1px 1px 0px #ffb3d9; text-decoration: none; }
+    .links { list-style: none; padding: 0; margin: 10px 0; background-color: #ff66b2; display: flex; flex-wrap: wrap; justify-content: space-around; border: 1px solid #d1006c; }
+    .links li { padding: 6px 10px; }
+    .links li a { color: #ffffff !important; font-weight: bold; text-decoration: none; font-size: 13px; }
+    .room-button-deck { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; padding: 10px; background: rgba(0,0,0,0.05); }
+    .room-btn { padding: 5px 10px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid #ff66b2; background: #fff; color: #ff007f; }
+    .room-btn.active { background: #ff007f !important; color: #fff !important; }
+    .row { display: flex; gap: 15px; margin-top: 15px; }
+    .col { display: flex; flex-direction: column; }
+    .module-box { border: 2px solid #ff66b2; background-color: #fff9fc; margin-bottom: 15px; }
+    .heading { background-color: #ffb3d9; padding: 6px 10px; border-bottom: 2px solid #ff66b2; color: #800040; font-weight: bold; }
+    .inner { padding: 10px; }
+    .control-deck { display: flex; gap: 10px; background: #ffb3d9; padding: 8px; align-items: center; font-size: 12px; }
+    .chat-scroller { height: 320px; overflow-y: scroll; padding: 10px; background: #fff; border: 1px solid #ff66b2; display: flex; flex-direction: column; gap: 6px; }
+    .input-row { display: flex; gap: 8px; padding: 10px; background: #fff; border-top: 1px solid #ff66b2; }
+    .input-row input[type="text"] { flex-grow: 1; padding: 6px; border: 1px solid #ff66b2; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="top">
+        <div class="left"><a href="index.html" class="logo">pinkSpace</a></div>
+        <div class="right"><a href="login.html">LogOut</a></div>
+      </div>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="profile.html">View Profile</a></li>
+        <li><a href="bulletins.html">Bulletins</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="layouts.html">Layouts</a></li>
+        <li><a href="#">Favs</a></li>
+        <li class="active"><a href="chatrooms.html">Chatrooms</a></li>
+      </ul>
+    </nav>
+    <div class="room-button-deck" id="room-buttons-target"></div>
+    <main class="row">
+      <div class="col" style="width:25%;">
+        <div class="module-box"><div class="heading">Identity</div><div class="inner">Set Handle</button></div></div>
+        <div class="module-box"><div class="heading">Sound</div><div class="inner"><label><input type="checkbox" id="sounds-toggle" checked> Chat Sounds</label></div></div>
+      </div>
+      <div class="col" style="width:75%;">
+        <div class="module-box">
+          <div class="heading" id="room-banner-title">Loading...</div>
+          <div class="control-deck">
+            Font: <select id="chat-font-selector" onchange="applyTextCustomizerStyle()"><option value="Arial">Arial</option><option value="Creepster">Creepster</option><option value="Nosifer">Nosifer</option><option value="Pacifico">Pacifico</option></select>
+            Color: <input type="color" id="chat-color-wheel" value="#000000" onchange="applyTextCustomizerStyle()">
+          </div>
+          <div class="chat-scroller" id="chat-stream-target"></div>
+          <div class="input-row"><input type="text" id="chat-message-entry" onkeydown="if(event.key==='Enter') transmitChatroomMessage()"><button onclick="transmitChatroomMessage()">Send</button></div>
+        </div>
+        <div class="module-box"><div class="heading">Rules</div><div class="inner" id="room-rules-target"></div></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const roomRegistry = {
+      goth: { name: "Goth Room", font: "Creepster", color: "#ff0055", styles: { bg: "#0a0508", card: "#140c11", header: "#3a1223", border: "#ff0055", mainText: "#ffb3d9", accent: "#ff0055" }, rules: ["No bright colors.", "Goth topics only."] },
+      vampire: { name: "Vampire Room", font: "Nosifer", color: "#ff0000", styles: { bg: "#0d0101", card: "#1c0404", header: "#4a0505", border: "#cc0000", mainText: "#ff9999", accent: "#ff0000" }, rules: ["No silver or sunlight.", "Roleplay encouraged."] },
+      pride: { name: "Pride Room", font: "Pacifico", color: "#ff007f", styles: { bg: "#fff0f6", card: "#ffffff", header: "#ffccd5", border: "#ff66b2", mainText: "#4a0026", accent: "#ff007f" }, rules: ["Safe space.", "Be nice."] }
+    };
+    const audioSynthCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playRetroSynthSound(type) {
+      if(!document.getElementById('sounds-toggle').checked) return;
+      const osc = audioSynthCtx.createOscillator(); const gain = audioSynthCtx.createGain(); osc.connect(gain); gain.connect(audioSynthCtx.destination); const now = audioSynthCtx.currentTime;
+      if(type === 'join') { osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(300, now + 0.15); gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2); osc.start(now); osc.stop(now + 0.2); }
+      else if(type === 'leave') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(120, now); gain.gain.setValueAtTime(0.4, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2); osc.start(now); osc.stop(now + 0.2); }
+      else if(type === 'chime') { osc.frequency.setValueAtTime(880, now); gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2); osc.start(now); osc.stop(now + 0.2); }
+    }
+    let currentRoomKey = "goth"; let clientChatHandle = "RetroGuest"; const timeoutUsersMap = new Map();
+    function bootChatroomInterface() {
+      const urlParams = new URLSearchParams(window.location.search); const p = urlParams.get('room'); if(p && roomRegistry[p]) currentRoomKey = p;
+      const active = roomRegistry[currentRoomKey]; const target = document.getElementById('room-buttons-target'); target.innerHTML = '';
+      for(let key in roomRegistry) {
+        const b = document.createElement('button'); b.className = `room-btn ${key===currentRoomKey?'active':''}`; b.innerText = roomRegistry[key].name; b.onclick = () => { window.location.search = `?room=${key}`; }; target.appendChild(b);
+      }
+      document.getElementById('room-banner-title').innerText = `💬 Welcome to the ${active.name}`; document.title = active.name;
+      const css = active.styles; document.getElementById('master-room-theme').innerHTML = `body{background:${css.bg}!important;color:${css.mainText}!important;} .container{background:${css.card}!important;border-color:${css.border}!important;}`;
+      document.getElementById('chat-font-selector').value = active.font; document.getElementById('chat-color-wheel').value = css.accent;
+      const rules = document.getElementById('room-rules-target'); rules.innerHTML = ''; active.rules.forEach(r => { const li = document.createElement('p'); li.innerText = `• ${r}`; rules.appendChild(li); });
+      setTimeout(() => { playRetroSynthSound('join'); }, 300);
+    }
+    function updateChatroomIdentity() {
+      const v = document.getElementById('chat-identity-input').value.trim(); if(v==="") return;
+      playRetroSynthSound('leave'); appendMsg("System", `${clientChatHandle} left.`, "#777", "Arial");
+      clientChatHandle = v; setTimeout(() => { playRetroSynthSound('join'); appendMsg("System", `${clientChatHandle} joined.`, "#777", "Arial"); }, 400);
+    }
+    function appendMsg(sender, text, color, font) {
+      const s = document.getElementById('chat-stream-target'); const div = document.createElement('div');
+      div.style.color = color; div.style.fontFamily = font; div.innerHTML = `<b>${sender}:</b> ${text}`; s.appendChild(div); s.scrollTop = s.scrollHeight;
+    }
+    function transmitChatroomMessage() {
+      const input = document.getElementById('chat-message-entry'); const txt = input.value.trim(); if(txt==="") return; input.value = "";
+      if(txt.startsWith('/timeout')) {
+        const user = txt.split(' ')[1]; timeoutUsersMap.set(user.toLowerCase(), Date.now() + 30000);
+        appendMsg("SystemBot", `${user} has been timed out for 30 seconds.`, "#ff0000", "Arial"); return;
+      }
+      if(timeoutUsersMap.has(clientChatHandle.toLowerCase()) && Date.now() < timeoutUsersMap.get(clientChatHandle.toLowerCase())) { alert("You are timed out!"); return; }
+      playRetroSynthSound('chime'); appendMsg(clientChatHandle, txt, document.getElementById('chat-color-wheel').value, document.getElementById('chat-font-selector').value);
+    }
+    function applyTextCustomizerStyle() {
